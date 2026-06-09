@@ -1,5 +1,5 @@
 import argparse
-from core.logic import event_print
+from core.logic import event_process
 
 def build_parser():
     parser = argparse.ArgumentParser(description="GitCheck - A tool to check if a GitHub user has made any commits in the last 24 hours.")
@@ -8,4 +8,4 @@ def build_parser():
     return parser
 
 def handle(args):
-    event_print(args.Username)
+    event_process(args.Username)
