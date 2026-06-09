@@ -8,7 +8,7 @@ with open('config.json') as config_file:
 
 
 def get_user_events(username):
-    url = f"{base_url}{username}/events"
+    url = f"{base_url}{username}/events/public"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -25,13 +25,23 @@ def count_events(event_data, event_type):
 
 def event_print(event_type, repository):
     if event_type == "PushEvent":
-        print(f"Number of commits in the last 24 hours: {count_events(get_user_events(repository), 'PushEvent')}")
+        print(f"PushEvent in repository: {repository}")
     elif event_type == "PullRequestEvent":
-        print(f"Number of pull requests in the last 24 hours: {count_events(get_user_events(repository), 'PullRequestEvent')}")
+        print(f" PullRequestEvent in repository: {repository}")
     elif event_type == "IssuesEvent":
-        print(f"Number of issues in the last 24 hours: {count_events(get_user_events(repository), 'IssuesEvent')}")
+        print(f"IssuesEvent in repository: {repository}")
+    elif event_type == "CreateEvent":
+        print(f"CreateEvent in repository: {repository}")
+    elif event_type == "DeleteEvent":
+        print(f"DeleteEvent in repository: {repository}")
+    elif event_type == "ForkEvent":
+        print(f"ForkEvent in repository: {repository}")
+    elif event_type == "WatchEvent":
+        print(f"WatchEvent in repository: {repository}")
+    elif event_type == "IssueCommentEvent":
+        print(f"IssueCommentEvent in repository: {repository}")
 
-def event_print(username):
+def event_process(username):
     data = get_user_events(username)
     if data is not None:
         for event in data:
