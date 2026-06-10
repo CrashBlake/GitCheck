@@ -23,23 +23,23 @@ def count_events(event_data, event_type):
             count += 1
     return count
 
-def event_print(event_type, repository):
+def event_print(event_type, repository, payload):
     if event_type == "PushEvent":
-        print(f"PushEvent in repository: {repository}")
+        print(f"PushEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "PullRequestEvent":
-        print(f" PullRequestEvent in repository: {repository}")
+        print(f" PullRequestEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "IssuesEvent":
-        print(f"IssuesEvent in repository: {repository}")
+        print(f"IssuesEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "CreateEvent":
-        print(f"CreateEvent in repository: {repository}")
+        print(f"CreateEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "DeleteEvent":
-        print(f"DeleteEvent in repository: {repository}")
+        print(f"DeleteEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "ForkEvent":
-        print(f"ForkEvent in repository: {repository}")
+        print(f"ForkEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "WatchEvent":
-        print(f"WatchEvent in repository: {repository}")
+        print(f"WatchEvent in repository: {repository} \n Description: {payload}")
     elif event_type == "IssueCommentEvent":
-        print(f"IssueCommentEvent in repository: {repository}")
+        print(f"IssueCommentEvent in repository: {repository} \n Description: {payload}")
 
 def event_process(username):
     data = get_user_events(username)
@@ -47,4 +47,5 @@ def event_process(username):
         for event in data:
             event_type = event['type']
             repository = event['repo']['name']
-            event_print(event_type, repository)
+            payload = event['payload']['action'] if 'action' in event['payload'] else 'No Description'
+            event_print(event_type, repository, payload)
