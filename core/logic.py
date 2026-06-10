@@ -48,4 +48,4 @@ def event_process(username):
             event_type = event['type']
             repository = event['repo']['name']
             payload = event['payload']['action'] if 'action' in event['payload'] else 'No Description'
-            event_print(event_type, repository, payload)
+            event_print(event_type, repository)
