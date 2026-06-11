@@ -1,3 +1,5 @@
+### This module is responsible for parsing command-line arguments and invoking the appropriate functions based on the user's input. It uses the argparse library to handle command-line arguments and provides a clean interface for users to interact with the GitCheck tool.
+
 import argparse
 from core.logic import event_process
 

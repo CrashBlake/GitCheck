@@ -1,3 +1,5 @@
+### This module contains the core logic for fetching and processing user events from the GitHub API. It defines functions to retrieve user events and process them to display relevant information about the user's recent activity on GitHub. The module also handles configuration loading from a JSON file to ensure that the API endpoint can be easily updated if needed.
+
 import requests
 import json
 
@@ -23,28 +25,7 @@ def get_user_events(username):
         print(f"Error fetching events for user {username}: User not found")
         return None
 
-
-# def event_print(event_type, repository):
-#     if event_type == "PushEvent":
-#         print(f"PushEvent in repository: {repository}")
-#     elif event_type == "PullRequestEvent":
-#         print(f" PullRequestEvent in repository: {repository}")
-#     elif event_type == "IssuesEvent":
-#         print(f"IssuesEvent in repository: {repository}")
-#     elif event_type == "CreateEvent":
-#         print(f"CreateEvent in repository: {repository}")
-#     elif event_type == "DeleteEvent":
-#         print(f"DeleteEvent in repository: {repository}")
-#     elif event_type == "ForkEvent":
-#         print(f"ForkEvent in repository: {repository}")
-#     elif event_type == "WatchEvent":
-#         print(f"WatchEvent in repository: {repository}")
-#     elif event_type == "IssueCommentEvent":
-#         print(f"IssueCommentEvent in repository: {repository}")
-#     elif event_type == "MemberEvent":
-#         print(f"MemberEvent in repository: {repository}")
-
-
+## Function to process and print user events
 def event_process(username):
     data = get_user_events(username)
     if data is not None:
@@ -53,4 +34,3 @@ def event_process(username):
             repository = event['repo']['name']
             payload = event['payload']['action'] if 'action' in event['payload'] else 'No Description'
             print(f"{event_type} in repository: {repository} - {payload}")
-            # event_print(event_type, repository)
