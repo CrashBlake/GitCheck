@@ -10,10 +10,18 @@ with open('config.json') as config_file:
 def get_user_events(username):
     url = f"{base_url}{username}/events/public"
     response = requests.get(url)
+    status_code = response.status_code
+    print("Status Code:", status_code)
     if response.status_code == 200:
+        json_data =  response.json()
+        json.dump(json_data, open(f"{username}_events.json", "w"), indent=4)
+        if response.json() == []:          
+            print(f"No recent events found for user {username}")
+
+            return None
         return response.json()
-    else:
-        print(f"Error fetching events for user {username}: {response.status_code}")
+    elif response.status_code == 404:
+        print(f"Error fetching events for user {username}: User not found")
         return None
 
 def count_events(event_data, event_type):
@@ -40,6 +48,8 @@ def event_print(event_type, repository):
         print(f"WatchEvent in repository: {repository}")
     elif event_type == "IssueCommentEvent":
         print(f"IssueCommentEvent in repository: {repository}")
+    elif event_type == "MemberEvent":
+        print(f"MemberEvent in repository: {repository}")
 
 def event_process(username):
     data = get_user_events(username)
